@@ -1,0 +1,54 @@
+card.appendChild(tags);
+            card.appendChild(small);
+
+            container.appendChild(card);
+        });
+
+        updateGalaxyCount();
+    }
+
+    function saveCurrentPlanet() {
+        if (!currentPlanet) {
+            alert("Generate a planet first.");
+            return;
+        }
+
+        galaxy.push(currentPlanet);
+        saveGalaxyToStorage();
+        renderGalaxyList();
+    }
+
+    function clearGalaxy() {
+        if (!confirm("Clear all saved worlds from your galaxy? This only affects local storage in this browser.")) {
+            return;
+        }
+        galaxy = [];
+        saveGalaxyToStorage();
+        renderGalaxyList();
+    }
+
+    function mintComingSoon() {
+        if (!currentPlanet) {
+            alert("Generate and save a planet first. In a future version, this button will mint your selected world as an NFT on Arc testnet.");
+            return;
+        }
+
+        alert(
+            "NFT minting is not implemented yet.\n\n" +
+            "Planned flow:\n" +
+            "• use the current planet's data as NFT metadata\n" +
+            "• call an Arc smart contract on testnet\n" +
+            "• return the transaction hash and token ID.\n\n" +
+            "For now this is a placeholder button to show the intended on-chain integration."
+        );
+    }
+
+    function init() {
+        galaxy = loadGalaxyFromStorage();
+        renderGalaxyList();
+    }
+
+    init();
+</script>
+</body>
+</html>
