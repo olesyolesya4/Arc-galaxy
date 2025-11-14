@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Arc Galaxy Generator v1.1</title>
+    <title>Arc Galaxy Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <style>
         * {
             box-sizing: border-box;
@@ -15,85 +14,70 @@
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             min-height: 100vh;
-            color: #f5f7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-image: url("Arc.png");
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            display: flex;
-            align-items: stretch;
-            justify-content: center;
+            color: #f5f7ff;
         }
 
-        .app-shell {
+        .app {
             background: radial-gradient(circle at top, rgba(90, 180, 255, 0.18), rgba(4, 8, 20, 0.96));
             backdrop-filter: blur(12px);
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
             border-radius: 24px;
-            margin: 20px;
-            max-width: 1180px;
-            width: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            max-width: 1100px;
+            width: 95%;
+            padding: 20px 24px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
         }
 
         header {
-            padding: 16px 22px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            background: linear-gradient(135deg, rgba(9, 14, 36, 0.9), rgba(9, 18, 48, 0.98));
+            align-items: center;
+            margin-bottom: 16px;
         }
 
-        .brand {
+        .logo-dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 20%, #5cf0ff, #3658ff, #190a47);
+            box-shadow: 0 0 16px rgba(92, 240, 255, 0.7);
+        }
+
+        .title-block {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .brand-logo {
-            width: 32px;
-            height: 32px;
-            border-radius: 999px;
-            background: radial-gradient(circle at 30% 20%, #5cf0ff, #3658ff, #190a47);
-            box-shadow: 0 0 18px rgba(92, 240, 255, 0.7);
+        h1 {
+            font-size: 1.3rem;
         }
 
-        .brand-text-main {
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.03em;
-        }
-
-        .brand-text-sub {
-            font-size: 0.75rem;
-            opacity: 0.75;
-        }
-
-        .badges {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.75rem;
+        .subtitle {
+            font-size: 0.85rem;
+            opacity: 0.8;
         }
 
         .badge {
+            font-size: 0.7rem;
             border-radius: 999px;
-            padding: 4px 10px;
-            border: 1px solid rgba(140, 190, 255, 0.6);
-            background: radial-gradient(circle at top left, rgba(92, 240, 255, 0.3), transparent);
+            padding: 4px 9px;
+            border: 1px solid rgba(160, 200, 255, 0.8);
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            font-size: 0.7rem;
         }
 
         main {
             display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
-            gap: 0;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+            gap: 16px;
         }
 
         @media (max-width: 900px) {
@@ -103,63 +87,36 @@
         }
 
         .panel {
-            padding: 18px 22px 20px 22px;
-        }
-
-        .panel + .panel {
-            border-left: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        @media (max-width: 900px) {
-            .panel + .panel {
-                border-left: none;
-                border-top: 1px solid rgba(255, 255, 255, 0.05);
-            }
-        }
-
-        h1 {
-            font-size: 1.25rem;
-            margin-bottom: 6px;
-        }
-
-        .subtitle {
-            font-size: 0.9rem;
-            opacity: 0.78;
-            margin-bottom: 16px;
+            padding: 10px 0;
         }
 
         .controls {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         button {
             border: none;
-            padding: 9px 16px;
+            padding: 8px 15px;
             border-radius: 999px;
             cursor: pointer;
             font-size: 0.9rem;
             font-weight: 600;
-            background: rgba(9, 170, 255, 0.1);
-            color: #f5f7ff;
-            border: 1px solid rgba(143, 196, 255, 0.7);
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
-        }
-
-        button span.icon {
-            font-size: 1rem;
+            background: rgba(12, 120, 255, 0.15);
+            border: 1px solid rgba(150, 200, 255, 0.8);
+            color: #f5f7ff;
+            transition: all 0.12s ease;
         }
 
         button:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
             background: radial-gradient(circle at top left, rgba(92, 240, 255, 0.28), rgba(21, 45, 120, 0.9));
-            border-color: rgba(203, 230, 255, 0.98);
         }
 
         button:active {
@@ -169,36 +126,33 @@
 
         button.secondary {
             background: rgba(9, 15, 40, 0.8);
-            border-color: rgba(160, 194, 255, 0.6);
         }
 
         button.ghost {
             background: transparent;
             border-style: dashed;
-            border-color: rgba(160, 194, 255, 0.4);
+            border-color: rgba(150, 200, 255, 0.6);
         }
 
         button[disabled] {
             opacity: 0.45;
             cursor: default;
-            box-shadow: none;
-            transform: none;
         }
 
         .card {
-            border-radius: 18px;
-            padding: 14px 16px 14px 16px;
             background: radial-gradient(circle at top, rgba(37, 70, 160, 0.3), rgba(3, 7, 22, 0.96));
-            border: 1px solid rgba(167, 204, 255, 0.28);
-            box-shadow: 0 0 22px rgba(0, 0, 0, 0.7);
-            margin-bottom: 12px;
+            border: 1px solid rgba(167, 204, 255, 0.36);
+            border-radius: 16px;
+            padding: 12px 14px;
+            box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
+            margin-bottom: 10px;
         }
 
         .card-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 8px;
+            align-items: center;
+            margin-bottom: 6px;
         }
 
         .card-title {
@@ -207,15 +161,15 @@
         }
 
         .pill {
-            font-size: 0.72rem;
-            padding: 3px 9px;
+            font-size: 0.7rem;
+            padding: 3px 8px;
             border-radius: 999px;
+            border: 1px solid rgba(140, 255, 220, 0.8);
             background: rgba(4, 240, 195, 0.12);
-            border: 1px solid rgba(136, 255, 222, 0.7);
         }
 
         .rows {
-            font-size: 0.87rem;
+            font-size: 0.86rem;
         }
 
         .row {
@@ -226,20 +180,12 @@
         }
 
         .label {
-            opacity: 0.72;
+            opacity: 0.75;
         }
 
         .value {
             font-weight: 500;
             text-align: right;
-        }
-
-        .value-rare {
-            color: #87f7ff;
-        }
-
-        .value-legendary {
-            color: #ffde7c;
         }
 
         .empty {
@@ -248,65 +194,37 @@
         }
 
         .lore {
-            margin-top: 8px;
-            padding-top: 7px;
-            border-top: 1px dashed rgba(195, 218, 255, 0.35);
-            font-size: 0.85rem;
+            margin-top: 7px;
+            padding-top: 6px;
+            border-top: 1px dashed rgba(190, 215, 255, 0.4);
+            font-size: 0.8rem;
             line-height: 1.35;
             opacity: 0.95;
-        }
-
-        .section-title {
-            font-size: 1rem;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .section-title span {
-            opacity: 0.7;
-            font-size: 0.8rem;
         }
 
         .galaxy-list {
             max-height: 320px;
             overflow-y: auto;
             padding-right: 4px;
+            font-size: 0.8rem;
         }
 
         .galaxy-card {
-            border-radius: 14px;
-            padding: 9px 10px 8px 10px;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, rgba(6, 16, 46, 0.92), rgba(11, 38, 86, 0.94));
+            border-radius: 12px;
+            padding: 7px 9px;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, rgba(6, 16, 46, 0.9), rgba(11, 38, 86, 0.9));
             border: 1px solid rgba(145, 191, 255, 0.45);
-            font-size: 0.82rem;
         }
 
-        .galaxy-card-header {
+        .galaxy-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
 
         .galaxy-name {
             font-weight: 600;
-        }
-
-        .galaxy-tags {
-            display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-        }
-
-        .galaxy-tag {
-            border-radius: 999px;
-            padding: 1px 8px;
-            border: 1px solid rgba(132, 180, 255, 0.7);
-            font-size: 0.68rem;
-            opacity: 0.9;
         }
 
         .rarity-common {
@@ -321,81 +239,65 @@
             color: #ffd973;
         }
 
-        .footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 10px 20px 11px 20px;
-            font-size: 0.78rem;
+        .galaxy-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 3px;
+        }
+
+        .galaxy-tag {
+            border-radius: 999px;
+            padding: 1px 7px;
+            border: 1px solid rgba(132, 180, 255, 0.7);
+        }
+
+        footer {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            opacity: 0.78;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            background: rgba(3, 7, 18, 0.96);
-        }
-
-        .footer-left {
-            opacity: 0.75;
-        }
-
-        .footer-right {
-            opacity: 0.7;
+            gap: 10px;
         }
 
         code {
-            font-family: "JetBrains Mono", "Fira Code", monospace;
-            font-size: 0.8rem;
-            opacity: 0.85;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.78rem;
         }
     </style>
 </head>
 <body>
-<div class="app-shell">
+<div class="app">
     <header>
-        <div class="brand">
-            <div class="brand-logo" aria-hidden="true"></div>
+        <div class="title-block">
+            <div class="logo-dot" aria-hidden="true"></div>
             <div>
-                <div class="brand-text-main">Arc Galaxy Generator</div>
-                <div class="brand-text-sub">Unofficial fan-made project · v1.1</div>
+                <h1>Arc Galaxy Generator</h1>
+                <div class="subtitle">Fan-made Arc-style world builder · v1.1</div>
             </div>
         </div>
-        <div class="badges">
-            <div class="badge">Prototype</div>
-            <div class="badge">Creator Mode</div>
-        </div>
+        <div class="badge">Prototype</div>
     </header>
 
     <main>
-        <!-- LEFT PANEL: Generator -->
         <section class="panel">
-            <h1>World builder</h1>
-            <div class="subtitle">
-                Generate Arc-style planets and cities. Save your favorites into <strong>My Galaxy</strong> or
-                prepare them for a future on-chain NFT mint.
+            <div class="subtitle" style="margin-bottom:10px;">
+                Generate Arc-style planets and cities. Save favourites to <strong>My Galaxy</strong> and imagine them as
+                future on-chain assets on Arc.
             </div>
 
             <div class="controls">
-                <button onclick="generatePlanet()">
-                    <span class="icon">🪐</span>
-                    Generate planet
+                <button onclick="generatePlanet()"><span>🪐</span>Generate planet</button>
+                <button onclick="generateCity()"><span>🏙️</span>Generate city</button>
+                <button onclick="generatePlanet(); generateCity();"><span>✨</span>Both</button>
+                <button id="savePlanetBtn" class="secondary" onclick="saveCurrentPlanet()" disabled>
+                    <span>💾</span>Save planet
                 </button>
-                <button onclick="generateCity()">
-                    <span class="icon">🏙️</span>
-                    Generate city
-                </button>
-                <button onclick="generatePlanet(); generateCity();">
-                    <span class="icon">✨</span>
-                    Generate both
-                </button>
-                <button class="secondary" id="savePlanetBtn" onclick="saveCurrentPlanet()" disabled>
-                    <span class="icon">💾</span>
-                    Save planet to galaxy
-                </button>
-                <button class="ghost" onclick="mintComingSoon()">
-                    <span class="icon">🧬</span>
-                    Mint as NFT (coming soon)
-                </button>
+                <button class="ghost" onclick="mintComingSoon()"><span>🧬</span>Mint as NFT (coming soon)</button>
             </div>
 
-            <!-- Planet card -->
-            <div class="card" id="planetCard">
+            <div class="card">
                 <div class="card-header">
                     <div class="card-title">Planet</div>
                     <div id="planetRarityPill" class="pill" style="display:none;"></div>
@@ -406,8 +308,7 @@
                 <div id="planetLore" class="lore" style="display:none;"></div>
             </div>
 
-            <!-- City card -->
-            <div class="card" id="cityCard">
+            <div class="card">
                 <div class="card-header">
                     <div class="card-title">City</div>
                 </div>
@@ -418,37 +319,27 @@
             </div>
         </section>
 
-        <!-- RIGHT PANEL: My Galaxy -->
         <section class="panel">
-            <div class="section-title">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
                 <div>My Galaxy</div>
-                <span id="galaxyCountLabel">0 saved worlds</span>
+                <div id="galaxyCountLabel" style="font-size:0.8rem;opacity:0.8;">0 saved worlds</div>
             </div>
-            <div class="subtitle">
-                Each saved planet is stored locally in your browser. In a future version these could be minted
-                as NFTs on Arc.
+            <div class="subtitle" style="margin-bottom:8px;">
+                Saved worlds are stored only in your browser (localStorage). In a future version they could be minted
+                as NFTs on Arc testnet.
             </div>
-
-            <div class="controls" style="margin-bottom:10px;">
-                <button class="ghost" onclick="clearGalaxy()">
-                    <span class="icon">🧹</span>
-                    Clear galaxy
-                </button>
+            <div class="controls" style="margin-bottom:8px;">
+                <button class="ghost" onclick="clearGalaxy()"><span>🧹</span>Clear galaxy</button>
             </div>
-
             <div id="galaxyList" class="galaxy-list empty">
-                No worlds saved yet. Generate a planet you like and click <strong>Save planet to galaxy</strong>.
+                No worlds saved yet. Generate a planet you like and click <strong>Save planet</strong>.
             </div>
         </section>
     </main>
 
-    <footer class="footer">
-        <div class="footer-left">
-            Background: <code>Arc.png</code>. This is an unofficial fan project inspired by Arc.
-        </div>
-        <div class="footer-right">
-            Future roadmap: AI-powered lore · on-chain NFT minting · multiplayer galaxy.
-        </div>
+    <footer>
+        <div>Background: <code>Arc.png</code>. Unofficial fan project inspired by Arc.</div>
+        <div>Roadmap: AI lore · Arc testnet NFT minting.</div>
     </footer>
 </div>
 
@@ -501,12 +392,7 @@
         "post-singularity civilization"
     ];
 
-    const CITY_SIZES = [
-        "village",
-        "small city",
-        "medium city",
-        "megacity"
-    ];
+    const CITY_SIZES = ["village", "small city", "medium city", "megacity"];
 
     const CITY_SPECIALTIES = [
         "trade",
@@ -620,7 +506,7 @@
         const civTemplates = [
             `The world currently hosts ${planet.civilizationLevel}, leaving faint traces visible from orbit.`,
             `At the surface, ${planet.civilizationLevel} has reshaped parts of the landscape.`,
-            `Hidden beneath clouds and storms, ${planet.civilizationLevel} slowly expands across the planet.`
+            `Hidden beneath storms, ${planet.civilizationLevel} slowly expands across the planet.`
         ];
 
         const rarityTemplates = {
@@ -629,43 +515,29 @@
                 `It is a solid waypoint world, useful but not yet the stuff of legends.`
             ],
             "Rare": [
-                `Because of its unusual parameters, many factions quietly compete for access to this world.`,
+                `Because of its unusual parameters, many factions quietly compete for access.`,
                 `Rumors suggest that whoever controls this planet gains a strategic advantage in nearby systems.`
             ],
             "Legendary": [
-                `Stories travel across the sector about the impossible phenomena recorded here.`,
+                `Stories travel across the sector about impossible phenomena recorded here.`,
                 `Entire fleets have vanished chasing secrets supposedly buried beneath its surface.`
             ]
         };
 
-        const intro = randomItem(introTemplates);
-        const civ = randomItem(civTemplates);
-        const rarityLine = randomItem(rarityTemplates[rarityLabel]);
-
-        return `${intro} ${civ} ${rarityLine}`;
+        return `${randomItem(introTemplates)} ${randomItem(civTemplates)} ${randomItem(rarityTemplates[rarityLabel])}`;
     }
 
     function generatePlanet() {
-        const name = generatePlanetName();
-        const type = randomItem(PLANET_TYPES);
-        const atmosphere = randomItem(ATMOSPHERES);
-        const climate = randomItem(CLIMATES);
-        const biome = randomItem(BIOMES);
-        const civLevel = randomItem(CIV_LEVELS);
-        const radiusKm = getRandomInt(2000, 80000);
-        const gravityG = getRandomFloat(0.2, 3.0, 2);
-        const moons = getRandomInt(0, 15);
-
         const planet = {
-            name: name,
-            type: type,
-            atmosphere: atmosphere,
-            climate: climate,
-            mainBiome: biome,
-            civilizationLevel: civLevel,
-            radiusKm: radiusKm,
-            gravityG: gravityG,
-            moons: moons
+            name: generatePlanetName(),
+            type: randomItem(PLANET_TYPES),
+            atmosphere: randomItem(ATMOSPHERES),
+            climate: randomItem(CLIMATES),
+            mainBiome: randomItem(BIOMES),
+            civilizationLevel: randomItem(CIV_LEVELS),
+            radiusKm: getRandomInt(2000, 80000),
+            gravityG: getRandomFloat(0.2, 3.0, 2),
+            moons: getRandomInt(0, 12)
         };
 
         const rarity = computeRarity(planet);
@@ -675,10 +547,15 @@
         currentPlanet = planet;
         document.getElementById("savePlanetBtn").disabled = false;
 
-        const planetResult = document.getElementById("planetResult");
-        const planetLore = document.getElementById("planetLore");
-        const rarityPill = document.getElementById("planetRarityPill");
+        const pill = document.getElementById("planetRarityPill");
+        pill.style.display = "inline-block";
+        pill.textContent = planet.rarityLabel;
+        pill.className = "pill " + (
+            rarity.label === "Legendary" ? "rarity-legendary" :
+            rarity.label === "Rare" ? "rarity-rare" : "rarity-common"
+        );
 
+        const planetResult = document.getElementById("planetResult");
         planetResult.classList.remove("empty");
         planetResult.innerHTML = `
             <div class="row"><div class="label">Name</div><div class="value">${planet.name}</div></div>
@@ -689,17 +566,13 @@
             <div class="row"><div class="label">Civilization level</div><div class="value">${planet.civilizationLevel}</div></div>
             <div class="row"><div class="label">Radius</div><div class="value">${planet.radiusKm.toLocaleString()} km</div></div>
             <div class="row"><div class="label">Gravity</div><div class="value">${planet.gravityG} g</div></div>
-            <div class="row"><div class="label">Number of moons</div><div class="value">${planet.moons}</div></div>
+            <div class="row"><div class="label">Moons</div><div class="value">${planet.moons}</div></div>
             <div class="row"><div class="label">Rarity score</div><div class="value">${planet.rarityScore}</div></div>
         `;
 
-        rarityPill.style.display = "inline-block";
-        rarityPill.textContent = planet.rarityLabel;
-        rarityPill.className = "pill " + (rarity.cssClass || "");
-
-        const loreText = generatePlanetLore(planet, planet.rarityLabel);
-        planetLore.style.display = "block";
-        planetLore.textContent = loreText;
+        const lore = document.getElementById("planetLore");
+        lore.style.display = "block";
+        lore.textContent = generatePlanetLore(planet, planet.rarityLabel);
     }
 
     function estimatePopulation(size) {
@@ -719,17 +592,17 @@
 
     function generateCityLore(city) {
         const hooks = [
-            `Locals say the city never truly sleeps; its skyline glows even during planetary eclipses.`,
-            `Smugglers and diplomats cross paths in shadowy side streets, each pretending not to notice the other.`,
-            `All major factions maintain a quiet presence here, each watching the others through layers of proxies.`,
-            `Every decade, a festival floods the streets with travelers from distant systems.`
+            `Locals say the city never truly sleeps; its skyline glows even during eclipses.`,
+            `Smugglers and diplomats cross paths in shadowy side streets.`,
+            `All major factions maintain a quiet presence here.`,
+            `Every decade, a festival floods the streets with travellers from distant systems.`
         ];
 
         const focus = [
-            `Its ${city.specialty} focus shapes daily life and determines who truly holds power.`,
-            `The current government, a ${city.government}, is barely holding together under mounting tension.`,
-            `The city’s main problem, ${city.problem}, defines much of its politics and underworld.`,
-            `Despite facing ${city.problem}, the population keeps growing, drawn by opportunity and myth.`
+            `Its ${city.specialty} focus shapes daily life and power.`,
+            `The current ${city.government} government is barely holding together.`,
+            `The city’s main problem, ${city.problem}, defines much of its politics.`,
+            `Despite ${city.problem}, the population keeps growing.`
         ];
 
         const featureLine = `Visitors immediately notice ${city.feature1.toLowerCase()} and ${city.feature2.toLowerCase()}, which dominate the skyline.`;
@@ -738,73 +611,58 @@
     }
 
     function generateCity() {
-        const name = generateCityName();
-        const size = randomItem(CITY_SIZES);
-        const specialty = randomItem(CITY_SPECIALTIES);
-        const government = randomItem(GOV_TYPES);
-        const problem = randomItem(PROBLEMS);
-        const feature1 = randomItem(FEATURES);
-        let feature2 = randomItem(FEATURES);
-
-        let safety = 0;
-        while (feature2 === feature1 && safety < 10) {
-            feature2 = randomItem(FEATURES);
-            safety++;
-        }
-
-        const population = estimatePopulation(size);
-
         const city = {
-            name,
-            size,
-            specialty,
-            government,
-            problem,
-            feature1,
-            feature2,
-            population
+            name: generateCityName(),
+            size: randomItem(CITY_SIZES),
+            specialty: randomItem(CITY_SPECIALTIES),
+            government: randomItem(GOV_TYPES),
+            problem: randomItem(PROBLEMS),
+            feature1: randomItem(FEATURES),
+            feature2: randomItem(FEATURES)
         };
 
-        const cityResult = document.getElementById("cityResult");
-        const cityLore = document.getElementById("cityLore");
+        let safety = 0;
+        while (city.feature2 === city.feature1 && safety++ < 5) {
+            city.feature2 = randomItem(FEATURES);
+        }
 
+        city.population = estimatePopulation(city.size);
+
+        const cityResult = document.getElementById("cityResult");
         cityResult.classList.remove("empty");
         cityResult.innerHTML = `
             <div class="row"><div class="label">Name</div><div class="value">${city.name}</div></div>
             <div class="row"><div class="label">Size</div><div class="value">${city.size}</div></div>
-            <div class="row"><div class="label">Estimated population</div><div class="value">${city.population.toLocaleString()}</div></div>
-            <div class="row"><div class="label">Main specialty</div><div class="value">${city.specialty}</div></div>
-            <div class="row"><div class="label">Government type</div><div class="value">${city.government}</div></div>
-            <div class="row"><div class="label">Major problem</div><div class="value">${city.problem}</div></div>
-            <div class="row"><div class="label">Notable features</div><div class="value">${city.feature1}, ${city.feature2}</div></div>
+            <div class="row"><div class="label">Population</div><div class="value">${city.population.toLocaleString()}</div></div>
+            <div class="row"><div class="label">Specialty</div><div class="value">${city.specialty}</div></div>
+            <div class="row"><div class="label">Government</div><div class="value">${city.government}</div></div>
+            <div class="row"><div class="label">Problem</div><div class="value">${city.problem}</div></div>
+            <div class="row"><div class="label">Features</div><div class="value">${city.feature1}, ${city.feature2}</div></div>
         `;
 
-        cityLore.style.display = "block";
-        cityLore.textContent = generateCityLore(city);
+        const lore = document.getElementById("cityLore");
+        lore.style.display = "block";
+        lore.textContent = generateCityLore(city);
     }
 
-    const GALAXY_STORAGE_KEY = "arc_galaxy_worlds_v1";
+    const STORAGE_KEY = "arc_galaxy_worlds_v1";
 
-    function loadGalaxyFromStorage() {
+    function loadGalaxy() {
         try {
-            const raw = localStorage.getItem(GALAXY_STORAGE_KEY);
+            const raw = localStorage.getItem(STORAGE_KEY);
             if (!raw) return [];
-            const parsed = JSON.parse(raw);
-            if (Array.isArray(parsed)) {
-                return parsed;
-            }
-            return [];
+            const data = JSON.parse(raw);
+            return Array.isArray(data) ? data : [];
         } catch (e) {
-            console.warn("Failed to load galaxy from storage", e);
             return [];
         }
     }
 
-    function saveGalaxyToStorage() {
+    function saveGalaxy() {
         try {
-            localStorage.setItem(GALAXY_STORAGE_KEY, JSON.stringify(galaxy));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(galaxy));
         } catch (e) {
-            console.warn("Failed to save galaxy to storage", e);
+            console.warn("Failed to save galaxy", e);
         }
     }
 
@@ -814,14 +672,14 @@
         label.textContent = count === 1 ? "1 saved world" : `${count} saved worlds`;
     }
 
-    function renderGalaxyList() {
+    function renderGalaxy() {
         const container = document.getElementById("galaxyList");
         container.innerHTML = "";
         container.classList.remove("empty");
 
         if (galaxy.length === 0) {
             container.classList.add("empty");
-            container.innerHTML = `No worlds saved yet. Generate a planet you like and click <strong>Save planet to galaxy</strong>.`;
+            container.innerHTML = `No worlds saved yet. Generate a planet you like and click <strong>Save planet</strong>.`;
             updateGalaxyCount();
             return;
         }
@@ -835,37 +693,33 @@
                     planet.rarityLabel === "Rare" ? "rarity-rare" : "rarity-common";
 
             const header = document.createElement("div");
-            header.className = "galaxy-card-header";
+            header.className = "galaxy-header";
             header.innerHTML = `
                 <div class="galaxy-name">${planet.name}</div>
                 <div class="${rarityClass}">${planet.rarityLabel}</div>
             `;
 
             const sub = document.createElement("div");
-            sub.style.marginBottom = "4px";
-            sub.style.opacity = "0.86";
+            sub.style.opacity = "0.85";
             sub.textContent = `${planet.type} · ${planet.mainBiome} · ${planet.climate}`;
 
             const tags = document.createElement("div");
             tags.className = "galaxy-tags";
             tags.innerHTML = `
-                <div class="galaxy-tag">Moons: ${planet.moons}</div>
-                <div class="galaxy-tag">Gravity: ${planet.gravityG} g</div>
-                <div class="galaxy-tag">Score: ${planet.rarityScore}</div>
-                <div class="galaxy-tag">Civ: ${planet.civilizationLevel}</div>
+                <span class="galaxy-tag">Moons: ${planet.moons}</span>
+                <span class="galaxy-tag">Gravity: ${planet.gravityG} g</span>
+                <span class="galaxy-tag">Score: ${planet.rarityScore}</span>
             `;
 
             const small = document.createElement("div");
-            small.style.marginTop = "4px";
             small.style.opacity = "0.7";
-            small.style.fontSize = "0.75rem";
-            small.textContent = `Saved slot #${index + 1}`;
+            small.style.marginTop = "2px";
+            small.textContent = `Slot #${index + 1}`;
 
             card.appendChild(header);
             card.appendChild(sub);
             card.appendChild(tags);
             card.appendChild(small);
-
             container.appendChild(card);
         });
 
@@ -877,10 +731,9 @@
             alert("Generate a planet first.");
             return;
         }
-
         galaxy.push(currentPlanet);
-        saveGalaxyToStorage();
-        renderGalaxyList();
+        saveGalaxy();
+        renderGalaxy();
     }
 
     function clearGalaxy() {
@@ -888,8 +741,8 @@
             return;
         }
         galaxy = [];
-        saveGalaxyToStorage();
-        renderGalaxyList();
+        saveGalaxy();
+        renderGalaxy();
     }
 
     function mintComingSoon() {
@@ -904,13 +757,13 @@
             "• use the current planet's data as NFT metadata\n" +
             "• call an Arc smart contract on testnet\n" +
             "• return the transaction hash and token ID.\n\n" +
-            "For now this is a placeholder button to show the intended on-chain integration."
+            "For now this is a placeholder to show the intended on-chain integration."
         );
     }
 
     function init() {
-        galaxy = loadGalaxyFromStorage();
-        renderGalaxyList();
+        galaxy = loadGalaxy();
+        renderGalaxy();
     }
 
     init();
